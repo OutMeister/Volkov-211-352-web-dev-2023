@@ -17,26 +17,29 @@
 
 Ограничение: Все задания надо выполнять используя только пройденные темы.
 """
-ip = input("Введите ip-адрес: ")
+while True:
+    ip = input("Введите ip-адрес: ")
+    n=0
+    ip_chek=True
+    for i in ip.split('.'):
+        if not i.isdigit() or int(i)>255 or int(i)<0:
+            ip_chek=False
+            break
+        n+=1
+    if ip_chek and n==4:
+        break
+    else:
+        print('Неправильный IP-адрес')
+        
 
-n=0
-ip_chek=True
-for i in ip.split('.'):
-   if not i.isdigit() or int(i)>255 or int(i)<0:
-      ip_chek=False
-      break
-   n+=1
-if ip_chek and n==4:
-   octet = int(ip.split(".")[0])
-   if octet >= 1 and octet <= 223:
-      print("unicast")
-   elif octet >= 224 and octet <= 239:
-      print("multicast")
-   elif ip == "255.255.255.255":
-      print("local broadcast")
-   elif ip == "0.0.0.0":
-      print("unassigned")
-   else:
-      print("unused")
+octet = int(ip.split(".")[0])
+if octet >= 1 and octet <= 223:
+    print("unicast")
+elif octet >= 224 and octet <= 239:
+    print("multicast")
+elif ip == "255.255.255.255":
+    print("local broadcast")
+elif ip == "0.0.0.0":
+    print("unassigned")
 else:
-   print('Неправильный IP-адрес')
+    print("unused")
