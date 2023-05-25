@@ -50,3 +50,8 @@ london_co = {
         "routing": True,
     },
 }
+
+param_list = london_co[name].keys()
+param_of_name = input("Введите имя параметра ({}): ".format(", ".join(param_list)))
+
+print(london_co[name][param_of_name])
