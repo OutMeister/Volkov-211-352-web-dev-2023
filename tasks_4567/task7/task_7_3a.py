@@ -40,12 +40,17 @@
 Ограничение: Все задания надо выполнять используя только пройденные темы.
 
 """
-with open("CAM_table.txt", "r") as conf:
-    for line in conf:
-        words = line.split()
-        if words and words[0].isdigit():
-            vlan, mac, _, intf = words
-            mac_table.append([int(vlan), mac, intf])
+line_array = []
 
-for vlan, mac, intf in sorted(mac_table):
-    print(f"{vlan:<9}{mac:20}{intf}")
+with open("CAM_table.txt") as f:
+    for line in f:
+        line = line.strip()
+        if not line or not line[0].isdigit():
+            continue
+        line = line.split()
+        line_array.append([int(line[0]), line[1], line[3]])
+        # print("{:9} {:20} {:5}".format(line[0], line[1], line[3]))
+
+line_array.sort()
+for line in line_array:
+    print("{:<9} {:20} {:5}".format(line[0], line[1], line[2]))
