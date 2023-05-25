@@ -63,4 +63,23 @@ def ignore_command(command, ignore):
     for word in ignore:
         if word in command:
             ignore_status = True
+            break
     return ignore_status
+
+
+def convert_config_to_dict(config_filename):
+    res = {}
+    with open(config_filename) as f:
+        current_command = ""
+        for line in f:
+            if ignore_command(line, ignore): continue
+            if line.strip() == "": continue
+            if line[0] == "!": continue
+            if line[0] != " ":
+                current_command = line.strip()
+                res[current_command] = []
+            if line[0] == " ":
+                res[current_command].append(line.strip())
+    return res
+
+print(convert_config_to_dict("config_sw1.txt"))
