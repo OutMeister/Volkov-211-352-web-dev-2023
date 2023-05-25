@@ -44,3 +44,5 @@ london_co = {
         "routing": True,
     },
 }
+
+print(london_co[name][param_of_name])
