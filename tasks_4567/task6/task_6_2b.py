@@ -13,29 +13,29 @@
 Ограничение: Все задания надо выполнять используя только пройденные темы.
 """
 
-correct_ip = False
-while correct_ip == False:
-    ip_addres = input("Введите IP адресс ")
-    correct_ip = True
-    if len(ip_addres.split(".")) == 4:
-        for k in ip_addres.split("."):
-            if not (k.isdigit() and int(k) < 256 and int (k) > 0):
-                correct_ip = False
-                break
+while True:
+    ip = input("Введите ip-адрес: ")
+    n=0
+    ip_chek=True
+    for i in ip.split('.'):
+        if not i.isdigit() or int(i)>255 or int(i)<0:
+            ip_chek=False
+            break
+        n+=1
+    if ip_chek and n==4:
+        break
     else:
-        correct_ip = False
-    if correct_ip == False:
-        print("Вы ввели неккоректный ip адрес")
-    
+        print('Неправильный IP-адрес')
+        
 
-first_byte = int(ip_addres.split(".")[0])
-if first_byte > 0 and first_byte < 224:
+octet = int(ip.split(".")[0])
+if octet >= 1 and octet <= 223:
     print("unicast")
-elif first_byte > 223 and first_byte < 240:
+elif octet >= 224 and octet <= 239:
     print("multicast")
-elif ip_addres == "255.255.255.255":
+elif ip == "255.255.255.255":
     print("local broadcast")
-elif ip_addres == "0.0.0.0":
+elif ip == "0.0.0.0":
     print("unassigned")
 else:
     print("unused")
