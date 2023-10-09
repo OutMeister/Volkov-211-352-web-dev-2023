@@ -39,14 +39,11 @@ infiles = [
 ]
 
 def create_network_map(filenames):
-    network_map = {}
-    for file in filenames:
-        with open(file) as show_command:
-            parsed = parse_cdp_neighbors(show_command.read())
-            network_map.update(parsed)
-    return network_map
-
+    res = {}
+    for elem_name in filenames:
+        print(elem_name)
+        res.update(parse_cdp_neighbors(elem_name))
+    return res
 
 if __name__ == "__main__":
-    topology = create_network_map(infiles)
-    print(topology)
+    print(create_network_map(infiles))
