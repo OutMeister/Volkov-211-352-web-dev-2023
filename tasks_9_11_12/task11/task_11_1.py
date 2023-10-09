@@ -34,20 +34,28 @@ R6           Fa 0/2          143           R S I           2811       Fa 0/0
 Ограничение: Все задания надо выполнять используя только пройденные темы.
 """
 
-
-def parse_cdp_neighbors(command_output):
-    res = {}
-    for row in command_output.split("\n"):
-        row = row.strip()
-        col = row.split()
-        if ">" in row:
-            hostname = row.split(">")[0]
-        elif len(col) >= 5 and col[3].isdigit():
-            r_host, l_int, l_int_num, *other, r_int, r_int_num = col
-            res[(hostname, l_int + l_int_num)] = (r_host, r_int + r_int_num)
-    return res
-
-
+def parse_cdp_neighbors(show):
+    with open(show) as file:
+        show = file.read()
+        q = {}
+        show = show.split('\n')
+        for line in show:
+            main = []
+            second = []
+            if line.find('>') != -1:
+                main_machine = line[:line.find('>')]
+            elif line.find('Eth') != -1:
+                second_machine, main_eth, main_inter, *other, second_eth, second_inter = line.split()
+                main.append(main_machine)
+                second.append(second_machine)
+                main_interface = main_eth + main_inter
+                second_interface = second_eth + second_inter
+                main.append(main_interface)
+                second.append(second_interface)
+                main_tuple = tuple(main)
+                second_tuple = tuple(second)
+                q[main_tuple] = second_tuple
+    return q
 if __name__ == "__main__":
-    with open("sh_cdp_n_sw1.txt") as f:
-        print(parse_cdp_neighbors(f.read()))
+    q = parse_cdp_neighbors('sh_cdp_n_sw1.txt')
+    print(q)
