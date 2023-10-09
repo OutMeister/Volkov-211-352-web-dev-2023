@@ -30,14 +30,14 @@ london_co = {
         "vendor": "Cisco",
         "model": "4451",
         "ios": "15.4",
-        "ip": "10.255.0.1",
+        "ip": "10.255.0.1"
     },
     "r2": {
         "location": "21 New Globe Walk",
         "vendor": "Cisco",
         "model": "4451",
         "ios": "15.4",
-        "ip": "10.255.0.2",
+        "ip": "10.255.0.2"
     },
     "sw1": {
         "location": "21 New Globe Walk",
@@ -46,11 +46,11 @@ london_co = {
         "ios": "3.6.XE",
         "ip": "10.255.0.101",
         "vlans": "10,20,30",
-        "routing": True,
-    },
+        "routing": True
+    }
 }
-
-param_list = london_co[name].keys()
-param_of_name = input("Введите имя параметра ({}): ".format(", ".join(param_list)))
-
-print(london_co[name].get(param_of_name, "Такого параметра нет"))
+print('\n' + '-' * 30)
+name = input("Введите имя устройства: ")
+param = input("Введите имя параметра (" + ",".join(list(london_co[name].keys())) + "): ")
+print('\n' + '-' * 30)
+print(london_co[name].get(param, "Такого параметра нет"))
